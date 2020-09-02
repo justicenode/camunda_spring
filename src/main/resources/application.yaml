@@ -3,6 +3,15 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+mail:
+  user: 0fd2daee20a6b3
+  displayName: workflow
+  password: 010971c8626d4b
+  smtpHost: smtp.mailtrap.io
+  smtpPort: 587
+  starttls: true
+  auth: true
+
 camunda.bpm.admin-user:
   id: admin
   password: admin

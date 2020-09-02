@@ -1,9 +1,5 @@
 package ch.noseryoung.workflow;
 
-import ch.noseryoung.workflow.tasks.Example;
-import ch.noseryoung.workflow.tasks.SendContract;
-import ch.noseryoung.workflow.tasks.SendDeclinationLetter;
-import ch.noseryoung.workflow.tasks.SendInterviewInvitation;
 import org.camunda.bpm.engine.*;
 import org.camunda.bpm.engine.spring.ProcessEngineFactoryBean;
 import org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration;
@@ -19,27 +15,6 @@ import javax.sql.DataSource;
 
 @Configuration
 public class ApplicationContext {
-    @Bean
-    public Example example() {
-        return new Example();
-    }
-
-    @Bean
-    public SendInterviewInvitation sendInterviewInvitation() {
-        return new SendInterviewInvitation();
-    }
-
-    @Bean
-    public SendContract sendContract() {
-        return new SendContract();
-    }
-
-    @Bean
-    public SendDeclinationLetter sendDeclinationLetter() {
-        return new SendDeclinationLetter();
-    }
-
-
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
