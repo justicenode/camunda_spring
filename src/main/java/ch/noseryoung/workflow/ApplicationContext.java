@@ -1,6 +1,7 @@
 package ch.noseryoung.workflow;
 
 import ch.noseryoung.workflow.tasks.Example;
+import ch.noseryoung.workflow.tasks.SendContract;
 import ch.noseryoung.workflow.tasks.SendDeclinationLetter;
 import ch.noseryoung.workflow.tasks.SendInterviewInvitation;
 import org.camunda.bpm.engine.*;
@@ -26,6 +27,11 @@ public class ApplicationContext {
     @Bean
     public SendInterviewInvitation sendInterviewInvitation() {
         return new SendInterviewInvitation();
+    }
+
+    @Bean
+    public SendContract sendContract() {
+        return new SendContract();
     }
 
     @Bean

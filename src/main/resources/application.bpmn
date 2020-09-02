@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0384b0t" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
-  <bpmn:process id="Process_1xdmngh" isExecutable="true">
+  <bpmn:process id="Application-process" isExecutable="true">
     <bpmn:startEvent id="StartEvent_1">
       <bpmn:extensionElements>
         <camunda:formData businessKey="Address">
           <camunda:formField id="Firstname" label="First name" type="string" />
           <camunda:formField id="Lastname" label="Last name" type="string" />
           <camunda:formField id="Address" label="Address" type="string" />
+          <camunda:formField id="email" label="E-Mail" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:outgoing>Flow_1p2g6i5</bpmn:outgoing>
@@ -32,10 +33,6 @@
       <bpmn:incoming>Flow_09sqmuq</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_09sqmuq" sourceRef="Activity_0a1c5x5" targetRef="Event_04xh9v3" />
-    <bpmn:task id="Activity_1420biu" name="send contract">
-      <bpmn:incoming>Flow_1mhqifr</bpmn:incoming>
-      <bpmn:outgoing>Flow_002dm39</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:userTask id="Activity_1bl7d6p" name="review application" camunda:assignee="admin">
       <bpmn:extensionElements>
         <camunda:formData>
@@ -49,11 +46,12 @@
       <bpmn:incoming>Flow_002dm39</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_002dm39" sourceRef="Activity_1420biu" targetRef="Event_1m9d3e4" />
-    <bpmn:userTask id="Activity_1rfl4i0" name="Interview">
+    <bpmn:userTask id="Activity_1rfl4i0" name="Interview" camunda:assignee="admin">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="Accepted" label="Accepted" type="boolean" />
           <camunda:formField id="Comment" label="Comment" type="string" />
+          <camunda:formField id="reason" label="Reason" type="string" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0vhki9i</bpmn:incoming>
@@ -77,9 +75,13 @@
       <bpmn:incoming>Flow_0h9270a</bpmn:incoming>
       <bpmn:outgoing>Flow_09sqmuq</bpmn:outgoing>
     </bpmn:sendTask>
+    <bpmn:sendTask id="Activity_1420biu" name="send contract" camunda:delegateExpression="${sendContract}">
+      <bpmn:incoming>Flow_1mhqifr</bpmn:incoming>
+      <bpmn:outgoing>Flow_002dm39</bpmn:outgoing>
+    </bpmn:sendTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1xdmngh">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Application-process">
       <bpmndi:BPMNEdge id="Flow_1p2g6i5_di" bpmnElement="Flow_1p2g6i5">
         <di:waypoint x="215" y="97" />
         <di:waypoint x="300" y="97" />
@@ -111,13 +113,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_09sqmuq_di" bpmnElement="Flow_09sqmuq">
         <di:waypoint x="1310" y="220" />
-        <di:waypoint x="1361" y="220" />
-        <di:waypoint x="1361" y="410" />
-        <di:waypoint x="1412" y="410" />
+        <di:waypoint x="1412" y="220" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_002dm39_di" bpmnElement="Flow_002dm39">
         <di:waypoint x="1310" y="97" />
-        <di:waypoint x="1422" y="97" />
+        <di:waypoint x="1412" y="97" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0h9270a_di" bpmnElement="Flow_0h9270a">
         <di:waypoint x="540" y="122" />
@@ -130,23 +130,8 @@
       <bpmndi:BPMNShape id="Activity_0kxzd52_di" bpmnElement="Activity_1fy1g68">
         <dc:Bounds x="650" y="57" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0jhjx2i_di" bpmnElement="Activity_1420biu">
-        <dc:Bounds x="1210" y="57" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1egec46_di" bpmnElement="Activity_1bl7d6p">
         <dc:Bounds x="300" y="57" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1m9d3e4_di" bpmnElement="Event_1m9d3e4">
-        <dc:Bounds x="1422" y="79" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1397" y="122" width="87" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_04xh9v3_di" bpmnElement="Event_04xh9v3">
-        <dc:Bounds x="1412" y="392" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1410" y="435" width="41" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_16i8ka8_di" bpmnElement="Activity_1rfl4i0">
         <dc:Bounds x="880" y="57" width="100" height="80" />
@@ -159,6 +144,21 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_06c24yh_di" bpmnElement="Activity_0a1c5x5">
         <dc:Bounds x="1210" y="180" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_04xh9v3_di" bpmnElement="Event_04xh9v3">
+        <dc:Bounds x="1412" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1410" y="245" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1m9d3e4_di" bpmnElement="Event_1m9d3e4">
+        <dc:Bounds x="1412" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1387" y="122" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1oz78da_di" bpmnElement="Activity_1420biu">
+        <dc:Bounds x="1210" y="57" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
